@@ -5,14 +5,14 @@ test("should setup remove expense action object", () => {
   const action = removeExpense({ id: "123abc" });
   expect(action).toEqual({
     type: "REMOVE_EXPENSE",
-    expenses: {
-      id: '123abc'
-    }
+    
+    id: '123abc'
+    
   });
 });
 
 test("should return the correct edit expense object", () => {
-    const action = editExpense('abc123', {
+  const action = editExpense({ id: 'abc123' }, {
         description: 'balls',
         note:'yo'
     });

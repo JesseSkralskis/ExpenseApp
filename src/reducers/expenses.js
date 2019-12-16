@@ -1,3 +1,4 @@
+
 //Expenses Reducer
 
 //to simplify default values we creat a variable that reps it
@@ -13,14 +14,19 @@ const expensesReducer = (state = expensesReducerDefaultState, action) => {
       return [...state, action.expenses];
 
     case "REMOVE_EXPENSE":
-      return state.filter(({ id }) => id !== action.expenses.id);
+     
+      return state.filter(({ id }) => id !== action.id);
+    
+    
 
     case "EDIT_EXPENSE":
       return state.map(expense => {
         if (expense.id === action.id) {
+        
+    
           return {
             //using spread operators for objects
-            //this sais take the existing expense array
+            //this sais take the existing 
             //with the id we gave and overwriting the updates we passed in
             ...expense,
             ...action.updates

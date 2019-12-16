@@ -2,34 +2,44 @@ import React from "react";
 import { connect } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
 import { editExpense, removeExpense } from "../actions/expenses";
-//take props from route
-const Edit = (props) => { 
-  console.log(props);
-  return (
-    <div>
-      {/* in this instance of expense form we need to populate the fields so we
+//refactor to pull out in line functions, turn them into methods so they dont have to rerender
+// set up mapDispatchToProps 2 things
+
+export class Edit extends React.Component{
+  
+  onSubmit = (expense) => {
+   console.log(expense)
+    this.props.editExpense(this.props.expense.id, expense);
+    this.props.history.push("/");
+    
+  }
+
+  onRemove = () => {
+   this.props.removeExpense({ id: this.props.expense.id });
+    this.props.history.push("/");
+  }
+  render() {
+    return (
+      <div>
+        {/* in this instance of expense form we need to populate the fields so we
       pass some props to the child the expense match
       and what should happen when they push the button */}
-      <ExpenseForm
-       
-        expense={props.expense}
-        onSubmit={expense => {
-          props.dispatch(editExpense(props.expense.id, expense));
-          props.history.push("/");
-        }}
-      />
-      <button
-        onClick={e => {
-          //need to rememberr that the og action function takes in the shorthand object
-          props.dispatch(removeExpense({ id: props.expense.id }));
-          props.history.push('/');
-        }}
-      >
-        Remove
-      </button>
-    </div>
-  );
-};
+        <ExpenseForm
+          expense={this.props.expense}
+          onSubmit={this.onSubmit}
+        />
+        <button
+          onClick={this.onRemove}
+        >
+          Remove
+        </button>
+      </div>
+    );
+  }
+}
+
+
+
 //we want to be able to pass the expense that matches the id that the user clicked on
 //so using the connect state and props we can search through the expenses array in the store
 //returning the 1 expense that matches the ids
@@ -43,12 +53,17 @@ const mapToProps = (state,props) => {
     })
   }
 }
+
+const mapDispatchToProps = (dispatch, props) => ({
+  editExpense: (id, expense) => dispatch(editExpense( id , expense)),
+  removeExpense: (data) => dispatch(removeExpense(data))
+})
   
 
   
 
 
-export default connect(mapToProps)(Edit);
+export default connect(mapToProps,mapDispatchToProps)(Edit);
 
 
  

@@ -8,16 +8,25 @@ import selectExpenses from '../selectors/expenses'
 
 //important to remember if you are connected to the store your component is reactive and will rerender
 //now wecan use the state of our store as props in the componenent
- const ExpenseList=(props) =>{
+ export const ExpenseList=(props) =>{
     return (
         <div>
-            <h1>expense List</h1>
-            {props.expenses.map((expense) => {
-                console.log(expense)
+            {/* for test we creat turneary logic to test if there are no expenses */}
+            {
+                props.expenses.length === 0 ? (
+                    <p>No expenses</p>
+                ) : (
+                     props.expenses.map((expense) => {
+              
                 //spread out al the things on expense which is all our propertys we are rendering in ListItem
                 //now ExpenseList Item has access to every individual instance with all the pairs 
                 return <ExpenseListItem key={expense.id}{...expense}/>
-           })}
+           })
+               
+                )
+            }
+
+           
             
         </div>
     )

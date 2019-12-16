@@ -4,8 +4,7 @@ import "react-dates/initialize";
 //named export from the react dates library
 
 import { SingleDatePicker } from 'react-dates';
-//needed to make the date picker be styled prtoperly
-import 'react-dates/lib/css/_datepicker.css'
+
 //for docu go to https://github.com/airbnb/react-dates
 //tools used to manipulate date:
 //1.moment 2. air b and b react-dates
@@ -16,7 +15,7 @@ import moment from 'moment';
 //for documentation on patterns go to
 //https://momentjs.com/docs/#/displaying/
 const now = moment();
-console.log(now.format('MMM Do YYYY'));
+
 
 
 
@@ -96,15 +95,16 @@ export default class ExpenseForm extends Component {
     e.preventDefault();
     if (!this.state.description || !this.state.amount) {
       this.setState(() => ({
-        error: 'you need to fill oot the description or amount field'
+        error: 'you need to fill out the description or amount field'
       }))
       
     } else {
       this.setState(() => ({
         error: ""
       }));
-      //calling the function that was passed from parent with the object drom all the state from this child component
+      //calling the function that was passed from parent with the object from all the state from this child component
       this.props.onSubmit({
+        id: this.state.id,
         description: this.state.description,
         //because amount is in string form we must parse it also multiply by 100 
         //so we can negate that it is in cents

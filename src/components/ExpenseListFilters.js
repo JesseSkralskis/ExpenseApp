@@ -4,7 +4,7 @@ import { setTextFilter, sortByAmount, sortByDate,setStartDate, setEndDate } from
 import { DateRangePicker } from 'react-dates';
 import uuid from 'uuid';
  
-class ExpenseListFilters extends React.Component{
+ export class ExpenseListFilters extends React.Component{
     
     state = {
         calenderFocused: null
@@ -17,9 +17,23 @@ class ExpenseListFilters extends React.Component{
         
     }
     onDatesChange = ({startDate, endDate}) => {
-        this.props.dispatch(setStartDate(startDate));
-        this.props.dispatch(setEndDate(endDate));
+      this.props.setStartDate(startDate);
+      this.props.setEndDate(endDate);
     }
+   
+   
+   onTextChange = (e) => {
+     this.props.setTextFilter(e.target.value);
+   }
+   onSortByChange = (e) => {
+     if (e.target.value === "date") {
+       this.props.sortByDate();
+     } else if (e.target.value === "amount") {
+       this.props.sortByAmount();
+     }
+   }
+
+   
     render() {
        
       return (
@@ -31,30 +45,22 @@ class ExpenseListFilters extends React.Component{
             <input
               type="text"
               value={this.props.filters.text}
-              onChange={e => {
-                // known as a controlled input meaning the value is controlled by javascript
-                this.props.dispatch(setTextFilter(e.target.value));
-              }}
+            onChange={this.onTextChange}
+            
             />
             {/* //how to create a pull down select menu with lowercase */}
             <select
               value={this.props.filters.sortBy}
-              onChange={e => {
-                if (e.target.value === "date") {
-                  this.props.dispatch(sortByDate());
-                } else if (e.target.value === "amount") {
-                  this.props.dispatch(sortByAmount());
-                }
-              }}
+              onChange={this.onSortByChange}
             >
               <option value="date">Date</option>
               <option value="amount">Amount</option>
             </select>
             <DateRangePicker
                     startDate={this.props.filters.startDate}
-                    startDateId={uuid()}
+                    startDateId={'abcd5678'}
                     endDate={this.props.filters.endDate}
-                    endDateId={uuid()}
+                    endDateId={'abc1235'}
               onDatesChange={this.onDatesChange}
                     focusedInput={this.state.calenderFocused}
                     onFocusChange={this.onFocusChange}
@@ -66,7 +72,17 @@ class ExpenseListFilters extends React.Component{
         );
     }
 
-}
+ }
+
+const mapDispatchToProps = (dispatch, props) => ({
+  setTextFilter: (value) => dispatch(setTextFilter(value)),
+  sortByAmount: () => dispatch(sortByAmount()),
+  sortByDate: () => dispatch(sortByDate()),
+  setStartDate: (startDate) => dispatch(setStartDate(startDate)),
+  setEndDate: (endDate) => dispatch(setEndDate(endDate))
+    
+   
+ })
 
  
 const mapStateToProps = (state) => {
@@ -75,4 +91,4 @@ const mapStateToProps = (state) => {
      }
  }
 
-export default connect(mapStateToProps)(ExpenseListFilters);
+export default connect(mapStateToProps,mapDispatchToProps)(ExpenseListFilters);
