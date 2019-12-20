@@ -1,13 +1,14 @@
 const express = require('express');
 const { createServer } = require('http');
 const morgan = require('morgan');
-const compression = require('compression');
+const compression = requ ire('compression');
 const bodyParser = require('body-parser');
 const app = express();
 const path = require('path');
 const buildPath = path.join(__dirname, '..', 'build');
 const port =  process.env.PORT || 3030;
 const dev = app.get('env') !== 'production'
+
 
 
 if (!dev) {
