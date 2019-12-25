@@ -1,6 +1,6 @@
 import React from 'react';
 import ExpenseList from './ExpenseList';
-
+import ExpenseTotals from './ExpenseTotals';
 import ExpenseListFilters from '../components/ExpenseListFilters';
 
 
@@ -13,8 +13,8 @@ import ExpenseListFilters from '../components/ExpenseListFilters';
 const DashBoard = () => (
    
     <div>
-       
-        <ExpenseListFilters/>
+        <ExpenseTotals/>
+        <ExpenseListFilters />
         <ExpenseList />
     </div>
 )
