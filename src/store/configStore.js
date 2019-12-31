@@ -1,6 +1,12 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers,applyMiddleware, compose } from 'redux';
 import expensesReducer from '../reducers/expenses';
 import filterReducer from '../reducers/filters';
+import thunk from 'redux-thunk';
+
+//in order to keep the dev tools we have to config a specific way
+// this config allows for redux and firebase to work together
+
+const composeEnhansers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default () => {
   //Store creation
@@ -10,7 +16,8 @@ export default () => {
       expenses: expensesReducer,
       filters: filterReducer
     }),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    composeEnhansers(applyMiddleware(thunk))
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() 
   );
     
     return store
