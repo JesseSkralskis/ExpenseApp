@@ -22,25 +22,39 @@ export const addExpense = (expenses) => ({
   expenses
   });
 
-  // export const addExpense = ({
-  //   description = "",
-  //   note = "",
-  //   amount = 0,
-  //   createdAt = 0
-  // } = {}) => ({
-  //   type: "ADD_EXPENSE",
-  //   expenses: {
-  //     id: uuid(),
-  //     description,
-  //     note,
-  //     amount,
-  //     createdAt
-  //   }
-  // });
+ 
 
   
 
-  //function for firebase
+ 
+
+//REMOVE_EXPENSE
+
+export const removeExpense = ({ id } = {}) => {
+
+
+  
+  return {
+ 
+    type: "REMOVE_EXPENSE",
+    id
+  };
+};
+//EDIT_EXPENSE
+
+export const editExpense = ({ id }, updates) => ({
+  type: "EDIT_EXPENSE",
+  id,
+  updates
+});
+
+//SET_EXPENSES
+const setExpenses = (expenses) => ({
+  type: 'SET_EXPENSES',
+  expenses
+});
+
+ //function for firebase
   //instaed of returning an object we return a function
   //only works because we set up the middleware for redux thunk
   
@@ -64,22 +78,26 @@ export const startAddExpense = (expenseData = {}) => {
   };
 };
 
-//REMOVE_EXPENSE
+export const startSetExpenses = () => {
+  //fetch all expense data once
+  //parse that data into an array
+  //Dispatch SET_EXPENSES
 
-export const removeExpense = ({ id } = {}) => {
+  return (dispatch) => {
+   return  database.ref('expenses').once('value')
+       .then((snapshot) => {
+         
+        const expenses = [];
+        snapshot.forEach((childSnapshot) => {
+          expenses.push({
+            id: childSnapshot.key,
+            ...childSnapshot.val()
+          });
+        });
+         console.log(expenses);
+        dispatch(setExpenses(expenses));
+       });
+  }
 
 
-  
-  return {
- 
-    type: "REMOVE_EXPENSE",
-    id
-  };
-};
-//EDIT_EXPENSE
-
-export const editExpense = ({ id }, updates) => ({
-  type: "EDIT_EXPENSE",
-  id,
-  updates
-});
+}

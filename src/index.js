@@ -5,7 +5,7 @@ import App from "./App.js";
 import * as serviceWorker from "./serviceWorker";
 import Redux2 from './playground/redux-expensify';
 import configStore from "../src/store/configStore";
-import { addExpense } from "../src/actions/expenses";
+import { startSetExpenses } from "../src/actions/expenses";
 import { setTextFilter } from "../src/actions/filters";
 import getVisibleExpenses from "../src/selectors/expenses";
 
@@ -16,11 +16,7 @@ import { Provider } from 'react-redux';
 
 const store = configStore();
 
-store.dispatch(addExpense({ description: "water bill",amount:150,createdAt:4500 }));
-store.dispatch(addExpense({ description: "Gas Bill", amount: 300, createdAt: 1000 }));
-store.dispatch(
-  addExpense({ description: "Rent", amount: 450, createdAt: 1095000 })
-);
+
 
 
 const state = store.getState();
@@ -37,9 +33,13 @@ const jsx = (
         <App/>
     </Provider>
 );
+ReactDOM.render(<p>Loading...</p>, document.getElementById("root"));
+
+store.dispatch(startSetExpenses()).then(() => {
+  ReactDOM.render(jsx, document.getElementById("root"));
+});
 
 
-ReactDOM.render(jsx, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
