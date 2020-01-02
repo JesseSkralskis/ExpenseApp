@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
-import { editExpense, startRemoveExpense } from "../actions/expenses";
+import { startEditExpense, startRemoveExpense } from "../actions/expenses";
 //refactor to pull out in line functions, turn them into methods so they dont have to rerender
 // set up mapDispatchToProps 2 things
 
@@ -9,7 +9,7 @@ export class Edit extends React.Component{
   
   onSubmit = (expense) => {
    console.log(expense)
-    this.props.editExpense(this.props.expense.id, expense);
+    this.props.startEditExpense(this.props.expense.id, expense);
     this.props.history.push("/");
     
   }
@@ -55,7 +55,7 @@ const mapToProps = (state,props) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-  editExpense: (id, expense) => dispatch(editExpense( id , expense)),
+  startEditExpense: (id, expense) => dispatch(startEditExpense({ id } , expense)),
   startRemoveExpense: (data) => dispatch(startRemoveExpense(data))
 })
   

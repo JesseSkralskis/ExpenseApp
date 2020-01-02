@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 //needed to make react-dates work
 import "react-dates/initialize";
 //named export from the react dates library
-
+import uuid from 'uuid';
+import database from '../firebase/firebase'
 import { SingleDatePicker } from 'react-dates';
 
 //for docu go to https://github.com/airbnb/react-dates
@@ -28,7 +29,8 @@ export default class ExpenseForm extends Component {
     this.state = {
       //because we want to populate the fields if the user has chosen to edit
       //we use turnerary logic that checks if the expense object has been passed from the parent
-      //if it has it means the user is editing so will populate 
+      //if it has it means the user is editing so will populate
+      
       description: props.expense ? props.expense.description : "",
       note: props.expense ? props.expense.note : "",
     //divide by 100 so the field holds the proper decimal situation
@@ -104,7 +106,7 @@ export default class ExpenseForm extends Component {
       }));
       //calling the function that was passed from parent with the object from all the state from this child component
       this.props.onSubmit({
-        id: this.state.id,
+        
         description: this.state.description,
         //because amount is in string form we must parse it also multiply by 100 
         //so we can negate that it is in cents
