@@ -1,35 +1,40 @@
 import React from "react";
 
-import {  Switch, BrowserRouter, Route } from "react-router-dom";
+import {  Switch, Router, Route } from "react-router-dom";
 import '../styles/base.scss'
-import Header from '../components/Header'
+
 import AddExpensePage from '../components/AddExpensePage'
 import DashBoard from '../components/DashBoard'
 import Edit from "../components/Edit";
 import Help from "../components/Help";
 import NotFoundPage from '../components/NotFoundPage.js';
+import LoginPage from '../components/LoginPage';
+//import this to get access to history api anywhere
+import createHistory from 'history/createBrowserHistory';
+import PrivateRoute from './PrivateRoute'
 
-
+export const history = createHistory();
+//instaed of using browser route3r with history built in 
+//we pass in our custom history
+//now we have the advantage to use history in other files
 
 const AppRouter = () => (
-
-    
-    <BrowserRouter>
+  <Router history={history}>
     {/* if more than on route must wrap with a div */}
     <div>
-      <Header />
+    
       {/* switch allows us to say if a route has no path match to print the
       component */}
       <Switch>
-        <Route exact={true} path="/" component={DashBoard} />
-        <Route path="/create" component={AddExpensePage} />
-        <Route path="/edit/:id" component={Edit} />
+        <Route exact={true} path="/" component={LoginPage} />
+        <PrivateRoute path="/dashboard" component={DashBoard} />
+        <PrivateRoute path="/create" component={AddExpensePage} />
+        <PrivateRoute path="/edit/:id" component={Edit} />
         <Route path="/help" component={Help} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
-  </BrowserRouter>
-
+  </Router>
 );
     
 
