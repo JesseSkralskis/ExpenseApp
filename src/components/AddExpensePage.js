@@ -16,7 +16,7 @@ export class AddExpensePage extends React.Component {
     // props.dispatch(addExpense(expense));
     this.props.startAddExpense(expense);
     //react router has props handed to it in this case we use push to redirect
-   this.props.history.push("/");
+   this.props.history.push("/dashboard");
   };
   render() {
     

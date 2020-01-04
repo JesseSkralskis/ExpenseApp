@@ -12,9 +12,9 @@ const Header = ({startLogout}) => (
   //nav we are on using activeclassname and the styling is-active
   <header>
     <h1>Expensify</h1>
-    <NavLink exact={true} activeClassName="is-active" to="/">
+    {/* <NavLink exact={true} activeClassName="is-active" to="/">
       Login
-    </NavLink>
+    </NavLink> */}
     <NavLink activeClassName="is-active" to="/create">
       create
     </NavLink>
