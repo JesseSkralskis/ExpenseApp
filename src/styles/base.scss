@@ -1,20 +1,7 @@
-html{
-    font-size: 100%;
-}
-
-body{
-    font-family: Arial, Helvetica, sans-serif
-}
-
-button{
-    cursor: pointer;
-
-}
-
-button:disabled {
-    cursor: default;
-}
-
-.is-active{
-   font-weight: bold;
-}
+@import './base/settings';
+@import './base/base';
+@import './components/box-layout';
+@import './components/buttons';
+@import './components/header';
+@import './components/content-container';
+@import './components/page-header';

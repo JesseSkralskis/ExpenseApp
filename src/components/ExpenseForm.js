@@ -41,14 +41,7 @@ export default class ExpenseForm extends Component {
       error: ""
     };
   }
-                //  state = {
-                //    description: "",
-                //    note: "",
-                //    amount: "",
-                //   createdAt: moment(),
-                //    calenderFocused: false,
-                //    error: ''
-                //  };
+             
                  //create an event handler function
                  handleDescriptionChange = e => {
                    const description = e.target.value;
