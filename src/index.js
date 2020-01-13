@@ -1,9 +1,10 @@
 import ReactDOM from "react-dom";
 import React from 'react';
+import "./styles/styles.scss"
 import "./index.css";
 import App from "./App.js";
 import * as serviceWorker from "./serviceWorker";
-
+import LoadingPage from "./components/LoadingPage";
 import configStore from "../src/store/configStore";
 import { startSetExpenses } from "../src/actions/expenses";
 
@@ -15,6 +16,7 @@ import { Provider } from 'react-redux';
 import appRouter, { history } from './routes/AppRouter';
 import {login, logout} from './actions/auth'
 const store = configStore();
+
 
 
 
@@ -33,7 +35,7 @@ const jsx = (
         <App/>
     </Provider>
 );
-ReactDOM.render(<p>Loading...</p>, document.getElementById("root"));
+ReactDOM.render(<LoadingPage/>, document.getElementById("root"));
 
 //allows us to conditionally have app render
 let hasRendered = false;

@@ -37,39 +37,44 @@ import uuid from 'uuid';
     render() {
        
       return (
-          
-
-        <div>
-          expenseListfilters
-            {/* any change in the input fires a dispatch that updates the text in textfilter in the store */}
-            <input
-              type="text"
-              value={this.props.filters.text}
-            onChange={this.onTextChange}
-            
-            />
-            {/* //how to create a pull down select menu with lowercase */}
-            <select
-              value={this.props.filters.sortBy}
-              onChange={this.onSortByChange}
-            >
-              <option value="date">Date</option>
-              <option value="amount">Amount</option>
-            </select>
-            <DateRangePicker
-                    startDate={this.props.filters.startDate}
-                    startDateId={'abcd5678'}
-                    endDate={this.props.filters.endDate}
-                    endDateId={'abc1235'}
-              onDatesChange={this.onDatesChange}
-                    focusedInput={this.state.calenderFocused}
-                    onFocusChange={this.onFocusChange}
-                    numberOfMonths={1}
-                    isOutsideRange={() => false}
-                    showClearDates={true}
-            />
+        <div className="content-container">
+          <div className="input-group">
+            <div className="input-group__item">
+              {" "}
+              <input
+                className="text-input"
+                placeholder="search expenses"
+                type="text"
+                value={this.props.filters.text}
+                onChange={this.onTextChange}
+              />
+            </div>
+            <div className="input-group__item">
+              <select className="select"
+                value={this.props.filters.sortBy}
+                onChange={this.onSortByChange}
+              >
+                <option value="date">Date</option>
+                <option value="amount">Amount</option>
+              </select>
+            </div>
+            <div className="input-group__item">
+              <DateRangePicker
+                startDate={this.props.filters.startDate}
+                startDateId={"abcd5678"}
+                endDate={this.props.filters.endDate}
+                endDateId={"abc1235"}
+                onDatesChange={this.onDatesChange}
+                focusedInput={this.state.calenderFocused}
+                onFocusChange={this.onFocusChange}
+                numberOfMonths={1}
+                isOutsideRange={() => false}
+                showClearDates={true}
+              />
+            </div>
           </div>
-        );
+        </div>
+      );
     }
 
  }

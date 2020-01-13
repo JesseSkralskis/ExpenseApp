@@ -10,26 +10,28 @@ import selectExpenses from '../selectors/expenses'
 //now wecan use the state of our store as props in the componenent
  export const ExpenseList=(props) =>{
     return (
-        <div>
-            {/* for test we creat turneary logic to test if there are no expenses */}
-            {
-                props.expenses.length === 0 ? (
-                    <p>No expenses</p>
-                ) : (
-                     props.expenses.map((expense) => {
-              
-                //spread out al the things on expense which is all our propertys we are rendering in ListItem
-                //now ExpenseList Item has access to every individual instance with all the pairs 
-                return <ExpenseListItem key={expense.id}{...expense}/>
-           })
-               
-                )
-            }
-
-           
-            
+      <div className="content-container">
+        <div className="list-header">
+          <div className="show-for-mobile">Expenses</div>
+          <div className="show-for-desktop">Expense</div>
+          <div className="show-for-desktop">Amount</div>
         </div>
-    )
+        {/* for test we creat turneary logic to test if there are no expenses */}
+        <div className="list-body">
+          {props.expenses.length === 0 ? (
+            <div className="list-item list-item--message">
+              <p>No expenses</p>
+            </div>
+          ) : (
+            props.expenses.map(expense => {
+              //spread out al the things on expense which is all our propertys we are rendering in ListItem
+              //now ExpenseList Item has access to every individual instance with all the pairs
+              return <ExpenseListItem key={expense.id} {...expense} />;
+            })
+          )}
+        </div>
+      </div>
+    );
 }
 
 //create higher order component

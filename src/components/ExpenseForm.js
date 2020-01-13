@@ -115,48 +115,53 @@ export default class ExpenseForm extends Component {
   }
                  render() {
                    return (
-                     <div>
-                       {this.state.error && <p>{this.state.error}</p>} 
-                       <form onSubmit={this.handleOnSubmit}>
-                         <input
-                           type="text"
-                           placeholder="description"
-                           //automatically places the cursor on this input
-                           autoFocus
-                           value={this.state.description}
-                           onChange={this.handleDescriptionChange}
-                         />
-                         {/* becuse type number allows many decimalplaces we must use text */}
-                         <input
-                           type="text"
-                           placeholder="amount"
-                           value={this.state.amount}
-                           onChange={this.onAmountChange}
-                         />
+                     <form className="form" onSubmit={this.handleOnSubmit}>
+                       {this.state.error && (
+                         <p className="form__error">{this.state.error}</p>
+                       )}
+                       <input
+                         className="text-input"
+                         type="text"
+                         placeholder="description"
+                         //automatically places the cursor on this input
+                         autoFocus
+                         value={this.state.description}
+                         onChange={this.handleDescriptionChange}
+                       />
+                       {/* becuse type number allows many decimalplaces we must use text */}
+                       <input
+                         className="text-input"
+                         type="text"
+                         placeholder="amount"
+                         value={this.state.amount}
+                         onChange={this.onAmountChange}
+                       />
 
-                         <SingleDatePicker
-                           date={this.state.createdAt}
-                           //similr to other event handlers but difference is
-                           //this one is called by our third party library
-                           onDateChange={this.handleDateChange}
-                           focused={this.state.calenderFocused}
-                           onFocusChange={this.onFocusChange}
-                           //custumization
-                           //docu https://github.com/airbnb/react-dates
-                           numberOfMonths={1}
-                           isOutsideRange={() => {
-                             return false;
-                           }}
-                         />
+                       <SingleDatePicker
+                         date={this.state.createdAt}
+                         //similr to other event handlers but difference is
+                         //this one is called by our third party library
+                         onDateChange={this.handleDateChange}
+                         focused={this.state.calenderFocused}
+                         onFocusChange={this.onFocusChange}
+                         //custumization
+                         //docu https://github.com/airbnb/react-dates
+                         numberOfMonths={1}
+                         isOutsideRange={() => {
+                           return false;
+                         }}
+                       />
 
-                         <textarea
-                           placeholder="add a note for your expense (optional)"
-                           value={this.state.note}
-                           onChange={this.handleNoteChange}
-                         />
-                         <button>Add Expense</button>
-                       </form>
-                     </div>
+                       <textarea
+                         className="text-area"
+                         placeholder="add a note for your expense (optional)"
+                         value={this.state.note}
+                         onChange={this.handleNoteChange}
+                       />
+                       <div>
+                         <button value="ballsack" className="buttons">{window.location.href.indexOf('edit')> -1 ?"Edit Expense": "Add expense"}</button>
+                       </div>
+                     </form>
                    );
                  }
                }

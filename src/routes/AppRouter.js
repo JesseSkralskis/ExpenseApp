@@ -1,7 +1,7 @@
 import React from "react";
 
 import {  Switch, Router, Route } from "react-router-dom";
-import '../styles/base.scss'
+import "../styles/styles.scss"
 
 import AddExpensePage from '../components/AddExpensePage'
 import DashBoard from '../components/DashBoard'
